@@ -1,0 +1,7 @@
+RED = 0
+GREEN = 0
+BLUE = 0
+
+RED_PIN = 27
+GREEN_PIN = 22
+BLUE_PIN = 17

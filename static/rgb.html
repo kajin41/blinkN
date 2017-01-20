@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<div ng-controller="myC1">
+
+<div id="r-slide" class="progress" ng-mousemove="mmove($event)" ng-mousedown="mdown($event)" ng-mouseup="mup($event)">
+	<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow={{x}} aria-valuemin="0" aria-valuemax="255" style="width:{{r/2.55}}%"></div>
+    {{r}}
+</div></div>
+<div ng-controller="myC2">
+    <div id="g-slide" class="progress" ng-mousemove="mmove($event)" ng-mousedown="mdown($event)" ng-mouseup="mup($event)">
+	<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow={{x}} aria-valuemin="0" aria-valuemax="255" style="width:{{g/2.55}}%"></div>
+    {{g}}
+</div></div>
+<div ng-controller="myC3">
+    <div id="b-slide" class="progress" ng-mousemove="mmove($event)" ng-mousedown="mdown($event)" ng-mouseup="mup($event)">
+	<div class="progress-bar" role="progressbar" aria-valuenow={{x}} aria-valuemin="0" aria-valuemax="255" style="width:{{b/2.55}}%"></div>
+    {{b}}
+</div></div>
+
+    <div class="jumbotron" style="background-color: rgb({{r}},{{g}},{{b}})">
+        <h1>color</h1>
+    </div>
+</div>
+

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+     <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+
+</head>
+<body ng-app="my" ng-init="r={{ r }};g={{ g }};b={{ b }}">
+
+<div class="container">
+
+  <ul class="nav nav-tabs">
+      <li class="active col-sx-3"><a data-toggle="tab" href="#rgb">RGB</a></li>
+
+      <li class="col-sx-3"><a data-toggle="tab" href="#picker">Picker</a></li>
+
+      <li class="col-sx-3"><a data-toggle="tab" href="#colors">Colors</a></li>
+
+      <li class="col-sx-3"><a data-toggle="tab" href="#modes">Modes</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="rgb" class="tab-pane fade in active">
+      <div ng-include="'/static/rgb.html'"></div>
+    </div>
+    <div id="picker" class="tab-pane fade">
+      <div ng-include="'/static/picker.html'"></div>
+    </div>
+    <div id="colors" class="tab-pane fade">
+      <div ng-include="'/static/colors.html'"></div>
+    </div>
+    <div id="modes" class="tab-pane fade">
+      <div ng-include="'/static/modes.html'"></div>
+    </div>
+  </div>
+      <input type="text" ng-model="r">
+<input type="text" ng-model="g">
+<input type="text" ng-model="b">
+</div>
+<script>
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+
+
+
+var app = angular.module('my', []);
+var mouseButtonPos = 0;
+app.controller('myC1', function($scope, $rootScope) {
+    $scope.mmove = function(myE) {
+        if (mouseButtonPos == 1){
+            $scope.x = myE.offsetX;
+           $rootScope.r = Math.round($scope.x / document.getElementById("r-slide").clientWidth * 255);
+            socket.emit('change r', {data: $rootScope.r});
+        }
+    };
+    $scope.mdown = function(myE) {
+        mouseButtonPos = 1;
+        $scope.x = myE.offsetX;
+        $rootScope.r = Math.round($scope.x / document.getElementById("r-slide").clientWidth * 255);
+        socket.emit('change r', {data: $rootScope.r});
+    };
+    $scope.mup = function(myE) {
+        mouseButtonPos = 0;
+    }
+});
+    app.controller('myC2', function($scope, $rootScope) {
+    $scope.mmove = function(myE) {
+        if (mouseButtonPos == 1){
+            $scope.x = myE.offsetX;
+            $rootScope.g = Math.round($scope.x / document.getElementById("g-slide").clientWidth * 255);
+            socket.emit('change g', {data: $rootScope.g});
+        }
+    };
+    $scope.mdown = function(myE) {
+        mouseButtonPos = 1;
+        $scope.x = myE.offsetX;
+        $rootScope.g = Math.round($scope.x / document.getElementById("g-slide").clientWidth * 255);
+        socket.emit('change g', {data: $rootScope.g});
+    };
+    $scope.mup = function(myE) {
+        mouseButtonPos = 0;
+    }
+});
+    app.controller('myC3', function($scope, $rootScope) {
+    $scope.mmove = function(myE) {
+        if (mouseButtonPos == 1){
+            $scope.x = myE.offsetX;
+            $rootScope.b = Math.round($scope.x / document.getElementById("b-slide").clientWidth * 255);
+            socket.emit('change b', {data: $rootScope.b});
+        }
+    };
+    $scope.mdown = function(myE) {
+        mouseButtonPos = 1;
+        $scope.x = myE.offsetX;
+        $rootScope.b = Math.round($scope.x / document.getElementById("b-slide").clientWidth * 255);
+        socket.emit('change b', {data: $rootScope.b});
+    };
+    $scope.mup = function(myE) {
+        mouseButtonPos = 0;
+    }
+});
+
+</script>
+</body>
+</html>
