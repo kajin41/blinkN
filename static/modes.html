@@ -3,10 +3,10 @@
     <select ng-model="selectedModes" ng-options="x for (x,y) in modes">
     </select>
 
-    <label ng-show="selectedModes=='sunset'">Intensity<input ng-model="intensity" type="number"></label>
+    <label ng-show="selectedModes=='sunset'">Intensity<input ng-model="intensity" value="255" type="number"></label>
 
 
-    <label>Duration <input type="number" ng-model="duration"></label>
+    <label>Duration <input type="number" ng-model="duration" value="10"></label>
     <button class="btn-success" ng-click="start_mode()">Start</button>
     <button class="btn-danger" ng-click="stop_mode()">Stop</button>
 </div>
