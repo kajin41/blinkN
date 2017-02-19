@@ -141,6 +141,7 @@ def trigger():
         config.GREEN = 255
         config.BLUE = 255
     lightupdate()
+    return 200
 
 
 @socketio.on('change r', namespace='/bl')
