@@ -130,6 +130,19 @@ def hello_world():
     return render_template('Home.html', r=config.RED, g=config.GREEN, b=config.BLUE)
 
 
+@app.route('/trigger')
+def trigger():
+    if config.RED > 0 or config.GREEN > 0 or config.BLUE > 0:
+        config.RED = 0
+        config.GREEN = 0
+        config.BLUE = 0
+    else:
+        config.RED = 255
+        config.GREEN = 255
+        config.BLUE = 255
+    lightupdate()
+
+
 @socketio.on('change r', namespace='/bl')
 def handle_my_custom_event(json):
     config.RED = int(str(json['data']))
