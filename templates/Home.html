@@ -52,13 +52,15 @@
 <input type="text" ng-model="b">
 </div>
 <script>
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/bl');
 
 
 
 
 var app = angular.module('my', []);
 var mouseButtonPos = 0;
+
+
 app.controller('myC1', function($scope, $rootScope) {
     $scope.mmove = function(myE) {
         if (mouseButtonPos == 1){
@@ -75,7 +77,7 @@ app.controller('myC1', function($scope, $rootScope) {
     };
     $scope.mup = function(myE) {
         mouseButtonPos = 0;
-    }
+    };
 });
     app.controller('myC2', function($scope, $rootScope) {
     $scope.mmove = function(myE) {
@@ -113,7 +115,36 @@ app.controller('myC1', function($scope, $rootScope) {
         mouseButtonPos = 0;
     }
 });
+ app.controller('myC4', function($scope, $rootScope) {
+    $scope.mclick_color = function(myE, red, green, blue) {
+        $rootScope.r = red;
+        socket.emit('change r', {data: $rootScope.r});
+        $rootScope.g = green;
+        socket.emit('change g', {data: $rootScope.g});
+        $rootScope.b = blue;
+        socket.emit('change b', {data: $rootScope.b});
+    };
+});
+    app.controller('myC5', function($scope, $rootScope) {
+    $scope.modes = {
+        sunset : "sunset",
+        party : "party",
+        fade : "fade",
+        wakeup : "wakeup",
+        strobe: "strobe"
+    };
+    $scope.selectedModes = $scope.modes['sunset']
 
+        $scope.start_mode = function () {
+            socket.emit('modes', {mode: $scope.selectedModes,
+                duration: $scope.duration,
+                intensity: $scope.intensity
+            })
+        };
+        $scope.stop_mode = function () {
+            socket.emit('modes', {mode: 'stop'})
+        };
+});
 </script>
 </body>
 </html>
