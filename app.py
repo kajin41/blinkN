@@ -19,7 +19,7 @@ def nullfunc():
 config.MODE_THREAD = multiprocessing.Process(target=nullfunc)
 
 pi = pigpio.pi()
-freq = 8000
+freq = 12000
 pi.set_PWM_frequency(config.RED_PIN, freq)
 pi.set_PWM_frequency(config.GREEN_PIN, freq)
 pi.set_PWM_frequency(config.BLUE_PIN, freq)
