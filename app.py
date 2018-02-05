@@ -147,7 +147,7 @@ def trigger():
 
 
 @app.route('/dim')
-def trigger():
+def dim():
     if config.RED > 0 or config.GREEN > 0 or config.BLUE > 0:
         config.RED = config.RED - 25
         config.GREEN = config.GREEN -25
@@ -161,7 +161,7 @@ def trigger():
 
 
 @app.route('/dusk')
-def trigger():
+def dusk():
     config.RED = 60
     config.GREEN = 50
     config.BLUE = 40
