@@ -51,6 +51,7 @@ def modeSunset(intensity, duration):
         config.RED -= 1
         config.GREEN -= 4
         config.BLUE -= 10
+    config.MODE_THREAD.terminate()
 
 
 def modeStrobe(duration):
@@ -65,6 +66,7 @@ def modeStrobe(duration):
         config.BLUE = 0
         lightupdate()
         sleep(duration / 1000)
+        
 
 def modeFade(duration):
     config.RED = 255
@@ -140,6 +142,29 @@ def trigger():
         config.RED = 255
         config.GREEN = 255
         config.BLUE = 255
+    lightupdate()
+    return '200'
+
+
+@app.route('/dim')
+def trigger():
+    if config.RED > 0 or config.GREEN > 0 or config.BLUE > 0:
+        config.RED = config.RED - 25
+        config.GREEN = config.GREEN -25
+        config.BLUE = config.BLUE
+    else:
+        config.RED = 0
+        config.GREEN = 0
+        config.BLUE = 0
+    lightupdate()
+    return '200'
+
+
+@app.route('/dusk')
+def trigger():
+    config.RED = 60
+    config.GREEN = 50
+    config.BLUE = 40
     lightupdate()
     return '200'
 
