@@ -148,14 +148,15 @@ def trigger():
 
 @app.route('/dim')
 def dim():
-    if config.RED > 0 or config.GREEN > 0 or config.BLUE > 0:
-        config.RED = config.RED - 25
-        config.GREEN = config.GREEN -25
-        config.BLUE = config.BLUE
-    else:
+    if config.RED <= 0 and config.GREEN <= 0 and config.BLUE <= 0:
         config.RED = 0
         config.GREEN = 0
         config.BLUE = 0
+    else:
+        config.RED = config.RED - 25
+        config.GREEN = config.GREEN -25
+        config.BLUE = config.BLUE -25
+        
     lightupdate()
     return '200'
 
